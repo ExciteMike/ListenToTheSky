@@ -1,13 +1,13 @@
-const _LIGHT_COLOR = '#797A9E',
-      _DARK_COLOR = '#BBBDF6';
+const DARK_COLOR = '#797A9E',
+      LIGHT_COLOR = '#BBBDF6';
 const color = {
-    background:_LIGHT_COLOR,
+    background:DARK_COLOR,
     debug:'#FF9900',
-    eye:_LIGHT_COLOR,
+    eye:DARK_COLOR,
     extra:'#72727E',
     extraextra:'#625F63',
-    object:_DARK_COLOR,
-    star:_DARK_COLOR,
+    object:LIGHT_COLOR,
+    star:LIGHT_COLOR,
     text:'#9893DA',
 };
 const ship = {
@@ -24,14 +24,23 @@ const ship = {
     eyeSize:10,
     accelMax:2000,
     accelMaxAt:300,
-    damp:0.97
+    damp:0.97,
+    radius:20
 };
 const seed = 59;
 const targetFrameRate = 60;
 const cameraBlend = 0.1;
 export const config = {
     cameraBlend,
-    color,
+    color,    
+    oob: {
+        border: '#FFCC00',
+        fill: '#FF3399',
+        strokeWeight: 2,
+        size: 40,
+        wall: LIGHT_COLOR,
+        wallWeight: 14
+    },
     seed,
     ship,
     targetFrameRate,

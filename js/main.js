@@ -8,6 +8,7 @@ import { config } from "./config.js";
 import { lerpAngle } from "./math.js";
 import { controlPlayer } from "./controls.js";
 import { doCameraTransform, updateCamera } from "./camera.js";
+import { drawBounds, drawOobIndicator } from "./bounds.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -47,9 +48,11 @@ function draw() {
     updateCamera();
 
     push();
-    doCameraTransform();
-    drawStars();
-    drawPlayer();
+        doCameraTransform();
+        drawStars();
+        drawBounds();
+        drawOobIndicator();
+        drawPlayer();
     pop();
 
     doIntro(config.color.text);
