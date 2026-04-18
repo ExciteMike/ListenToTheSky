@@ -2,6 +2,9 @@ import { audio } from "./audio.js";
 import { drawStars, makeStars } from "./stars.js";
 import { noise } from "./noise.js";
 import { doIntro } from "./intro.js";
+import { world } from "./world.js";
+import { G } from "./g.js";
+import { config } from "./config.js";
 const SEED=59,
 ROCKET_WIDTH=14,
 ROCKET_HEIGHT=20,
@@ -15,12 +18,12 @@ EYE_SHIFT_SCALE=0.02,
 EYE_SHIFT_MAX=3,
 EYE_SIZE=10;
 let p1 = {
-    x: WORLD.center.x,
-    y: WORLD.center.y,
+    x: world.center.x,
+    y: world.center.y,
 };
 G.camera = {
-    x: WORLD.center.x,
-    y: WORLD.center.y,
+    x: world.center.x,
+    y: world.center.y,
 }
 
 function preload() {
@@ -39,11 +42,11 @@ function setup() {
 window.setup=setup;
 
 function draw() {
-    background(COLOR.BACKGROUND);
+    background(config.color.background);
 
     drawStars()
     drawPlayer();
-    doIntro(COLOR.TEXT);
+    doIntro(config.color.text);
 }
 window.draw=draw;
 
@@ -76,14 +79,14 @@ function drawPlayer() {
         push();
             // body
             rotate(bodyTilt);
-            fill(COLOR.OBJECT);
+            fill(config.color.object);
             rect(-ROCKET_WIDTH/2,-ROCKET_HEIGHT/2,ROCKET_WIDTH,ROCKET_HEIGHT);
 
             // head
             push();
                 translate(0, -ROCKET_HEIGHT/2);
                 rotate(headTilt-bodyTilt);
-                fill(COLOR.OBJECT);
+                fill(config.color.object);
                 triangle(
                     -ROCKET_WIDTH/2, 0,
                     ROCKET_WIDTH/2, 0,
@@ -92,9 +95,9 @@ function drawPlayer() {
 
                 // EYE
                 circle(eyeShift, EYE_Y, EYE_SIZE);
-                fill(COLOR.EYE);
+                fill(config.color.eye);
                 circle(eyeShift, EYE_Y, EYE_SIZE-2);
-                fill(COLOR.OBJECT);
+                fill(config.color.object);
                 circle(eyeShift, EYE_Y, EYE_SIZE-4);
             pop();
             

@@ -1,8 +1,11 @@
+import { G } from "./g.js";
 let song;
 
 function preload() {
     soundFormats('mp3');
-    song = loadSound('assets/Listening to the Quiet Sky B', loaded);
+    const asset = 'assets/Listening to the Quiet Sky B';
+    console.log('Loading '+asset+'.mp3');
+    song = loadSound(asset, loaded);
 }
 
 function loaded() {

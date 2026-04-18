@@ -1,3 +1,6 @@
+import { config } from "./config.js";
+import { G } from "./g.js";
+import { world } from "./world.js";
 const STAR_SIZE_MIN = 2,
       STAR_SIZE_MAX = 4,
       MIN_STARS_IN_CELL = 60,
@@ -5,7 +8,7 @@ const STAR_SIZE_MIN = 2,
 const starData = [];
 
 export function drawStars() {
-    stroke(COLOR.STAR);
+    stroke(config.color.star);
     strokeWeight(4);
     noFill();
     push();
@@ -35,8 +38,8 @@ function makeStarCell(row, col) {
         starCount = lerp(MIN_STARS_IN_CELL, MAX_STARS_IN_CELL, random())|0;
     for (let i=0;i<starCount;++i) {
         stars.push({
-            x:(col+random()) * WORLD.cellWidth,
-            y:(row+random()) * WORLD.cellHeight,
+            x:(col+random()) * world.cellWidth,
+            y:(row+random()) * world.cellHeight,
             s:random(STAR_SIZE_MIN,STAR_SIZE_MAX+1)|0
         });
     }
@@ -44,9 +47,9 @@ function makeStarCell(row, col) {
 }
 
 export function makeStars() {
-    for (let row = 0; row<WORLD.gridRows; ++row) {
+    for (let row = 0; row<world.gridRows; ++row) {
         const rowData = [];
-        for (let col = 0; col<WORLD.gridCols; ++col) {
+        for (let col = 0; col<world.gridCols; ++col) {
             rowData.push(makeStarCell(row, col));
         }
         starData.push(rowData);
