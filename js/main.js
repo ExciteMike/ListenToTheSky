@@ -8,12 +8,19 @@ import { config } from "./config.js";
 import { lerpAngle } from "./math.js";
 import { controlPlayer } from "./controls.js";
 G.ship = {
+    ddx: 0,
+    ddy: 0,
+    dx: 0,
+    dy: 0,
+    straightenFactor: 0,
+    targetX: world.center.x,
+    targetY: world.center.y,
     x: world.center.x,
     y: world.center.y,
 };
 G.camera = {
-    x: world.center.x,
-    y: world.center.y,
+    x: world.center.x-G.CANVAS_SIZE/2,
+    y: world.center.y-G.CANVAS_SIZE/2,
 }
 
 function preload() {
@@ -24,6 +31,7 @@ window.preload=preload;
 function setup() {
     document.getElementById("loading").remove();
     G.canvas = createCanvas(G.CANVAS_SIZE, G.CANVAS_SIZE);
+    frameRate(config.targetFrameRate);
     noiseSeed(config.seed);
     textFont(loadFont('assets/Goldman-Regular.ttf'));
     textAlign(CENTER, CENTER);
@@ -34,8 +42,14 @@ window.setup=setup;
 function draw() {
     background(config.color.background);
 
-    drawStars()
+    controlPlayer();
+
+    push();
+    doCameraTransform();
+    drawStars();
     drawPlayer();
+    pop();
+
     doIntro(config.color.text);
 }
 window.draw=draw;
@@ -56,6 +70,7 @@ function drawPlayer() {
                     (mouseHeading <  0.25*PI) ? mouseHeading :
                     (mouseHeading <   0.5*PI) ? map(mouseHeading, 0.25*PI, 0.5*PI, mouseHeading, 0) :
                     (mouseHeading <  0.75*PI) ? map(mouseHeading,  0.5*PI, 0.75*PI, 0, (mouseHeading - PI)) :
+                    (mouseHeading-PI);
     let bodyTilt = tiltScale * config.ship.bodyTiltScale * rawTilt,
         headTilt = tiltScale * config.ship.headTiltScale * rawTilt,
         finTilt = tiltScale * config.ship.finTiltScale * rawTilt,
@@ -71,8 +86,8 @@ function drawPlayer() {
 
     push();
     translate(
-        G.ship.x+noise.p1.driftX()-G.camera.x+G.CANVAS_SIZE/2,
-        G.ship.y+noise.p1.driftY()-G.camera.y+G.CANVAS_SIZE/2);
+        G.ship.x+noise.p1.driftX(),
+        G.ship.y+noise.p1.driftY());
 
         push();
             // body
@@ -88,7 +103,7 @@ function drawPlayer() {
                 triangle(
                     -config.ship.bodyWidth/2, 0,
                     config.ship.bodyWidth/2, 0,
-                                0, -config.ship.headHeight);
+                    0, -config.ship.headHeight);
                 arc(0, 0, config.ship.bodyWidth, config.ship.bodyWidth, 0, PI);
 
                 // EYE
@@ -110,4 +125,10 @@ function drawPlayer() {
             pop();
         pop();
     pop();
+}
+
+function doCameraTransform() {
+    translate(
+        -G.camera.x,
+        -G.camera.y);
 }

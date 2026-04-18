@@ -11,26 +11,20 @@ export function drawStars() {
     stroke(config.color.star);
     strokeWeight(4);
     noFill();
-    push();
-        translate(
-            -G.camera.x,
-            -G.camera.y
-        );
-        const minRow = floor(G.camera.y / G.CANVAS_SIZE),
-            minCol = floor(G.camera.x / G.CANVAS_SIZE),
-            maxRow = minRow+2,
-            maxCol=minCol+2;
-        for (let row=minRow;row<maxRow;++row) {
-            const rowData = starData[row];
-            for (let col=minCol;col<maxCol;++col) {
-                const cellData = rowData[col];
-                for (const {x,y,s} of cellData) {
-                    strokeWeight(s);
-                    point(x,y);
-                }
+    const minRow = max(0, floor(G.camera.y / G.CANVAS_SIZE)),
+        minCol = max(0, floor(G.camera.x / G.CANVAS_SIZE)),
+        maxRow = min(minRow+2, world.gridRows),
+        maxCol= min(minCol+2, world.gridCols);
+    for (let row=minRow;row<maxRow;++row) {
+        const rowData = starData[row];
+        for (let col=minCol;col<maxCol;++col) {
+            const cellData = rowData[col];
+            for (const {x,y,s} of cellData) {
+                strokeWeight(s);
+                point(x,y);
             }
         }
-    pop();
+    }
 }
 
 function makeStarCell(row, col) {
