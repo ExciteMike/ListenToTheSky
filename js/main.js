@@ -7,6 +7,7 @@ import { G } from "./g.js";
 import { config } from "./config.js";
 import { lerpAngle } from "./math.js";
 import { controlPlayer } from "./controls.js";
+import { doCameraTransform, updateCamera } from "./camera.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -43,6 +44,7 @@ function draw() {
     background(config.color.background);
 
     controlPlayer();
+    updateCamera();
 
     push();
     doCameraTransform();
@@ -127,10 +129,4 @@ function drawPlayer() {
             pop();
         pop();
     pop();
-}
-
-function doCameraTransform() {
-    translate(
-        -G.camera.x,
-        -G.camera.y);
 }

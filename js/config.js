@@ -28,9 +28,11 @@ const ship = {
 };
 const seed = 59;
 const targetFrameRate = 60;
+const cameraBlend = 0.1;
 export const config = {
+    cameraBlend,
     color,
     seed,
     ship,
-    targetFrameRate
+    targetFrameRate,
 };

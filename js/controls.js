@@ -3,8 +3,7 @@ import { G } from "./g.js";
 
 export function controlPlayer() {
     const fps = getTargetFrameRate(),
-          timeStep = 1/fps,
-          time = millis()*0.001 + timeStep;
+          timeStep = 1/fps;
     // mouse sets target
     if (mouseIsPressed) {
         G.ship.targetX = mouseX + G.camera.x;
