@@ -1,3 +1,6 @@
+import { audio } from "./audio.js";
+import { drawStars, makeStars } from "./stars.js";
+import { noise } from "./noise.js";
 const SEED=59,
 ROCKET_WIDTH=14,
 ROCKET_HEIGHT=20,
@@ -19,13 +22,20 @@ G.camera = {
     y: WORLD.center.y,
 }
 
+function preload() {
+    audio.preload();
+}
+window.preload=preload;
+
 function setup() {
-    createCanvas(G.CANVAS_SIZE, G.CANVAS_SIZE);
+    document.getElementById("loading").remove();
+    G.canvas = createCanvas(G.CANVAS_SIZE, G.CANVAS_SIZE);
     noiseSeed(SEED);
     textFont(loadFont('assets/Goldman-Regular.ttf'));
     textAlign(CENTER, CENTER);
     makeStars();
 }
+window.setup=setup;
 
 function draw() {
     background(COLOR.BACKGROUND);
@@ -34,17 +44,18 @@ function draw() {
     drawPlayer();
     doIntro(COLOR.TEXT);
 }
+window.draw=draw;
 
 function drawPlayer() {
     noStroke();
-    const drift = NOISE.p1.drift();
+    const drift = noise.p1.drift();
     let adjustedMouse = createVector(mouseX, mouseY);
     adjustedMouse.sub(drift);
     adjustedMouse.sub(G.CANVAS_SIZE/2, G.CANVAS_SIZE/2);
     adjustedMouse.add(0, ROCKET_HEIGHT/2);
     const mouseMag = adjustedMouse.mag(),
           mouseHeading = adjustedMouse.heading(),
-          tiltScale = (mouseMag<ROCKET_HEIGHT) ? adjustedMouse.mag()/ROCKET_HEIGHT : 1;
+          tiltScale = (mouseMag<ROCKET_HEIGHT) ? adjustedMouse.mag()/ROCKET_HEIGHT : 1,
           rawTilt = (mouseHeading < -0.75*PI) ? (mouseHeading+PI) : 
                     (mouseHeading < -0.5*PI)  ? map(mouseHeading, -0.75*PI, -0.5*PI, (mouseHeading+PI), 0) :
                     (mouseHeading < -0.25*PI) ? map(mouseHeading, -0.5*PI, -0.25*PI, 0, mouseHeading) :
@@ -58,8 +69,8 @@ function drawPlayer() {
           eyeShift = constrain(EYE_SHIFT_SCALE * adjustedMouse.x, -EYE_SHIFT_MAX, EYE_SHIFT_MAX);
     push();
     translate(
-        p1.x+NOISE.p1.driftX()-G.camera.x+G.CANVAS_SIZE/2,
-        p1.y+NOISE.p1.driftY()-G.camera.y+G.CANVAS_SIZE/2);
+        p1.x+noise.p1.driftX()-G.camera.x+G.CANVAS_SIZE/2,
+        p1.y+noise.p1.driftY()-G.camera.y+G.CANVAS_SIZE/2);
 
         push();
             // body

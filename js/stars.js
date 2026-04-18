@@ -2,9 +2,9 @@ const STAR_SIZE_MIN = 2,
       STAR_SIZE_MAX = 4,
       MIN_STARS_IN_CELL = 60,
       MAX_STARS_IN_CELL = 180;
-const _stars = [];
+const starData = [];
 
-function drawStars() {
+export function drawStars() {
     stroke(COLOR.STAR);
     strokeWeight(4);
     noFill();
@@ -18,7 +18,7 @@ function drawStars() {
             maxRow = minRow+2,
             maxCol=minCol+2;
         for (let row=minRow;row<maxRow;++row) {
-            const rowData = _stars[row];
+            const rowData = starData[row];
             for (let col=minCol;col<maxCol;++col) {
                 const cellData = rowData[col];
                 for (const {x,y,s} of cellData) {
@@ -43,12 +43,12 @@ function makeStarCell(row, col) {
     return stars;
 }
 
-function makeStars() {
+export function makeStars() {
     for (let row = 0; row<WORLD.gridRows; ++row) {
         const rowData = [];
         for (let col = 0; col<WORLD.gridCols; ++col) {
             rowData.push(makeStarCell(row, col));
         }
-        _stars.push(rowData);
+        starData.push(rowData);
     }
 }
