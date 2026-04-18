@@ -1,6 +1,7 @@
 import { audio } from "./audio.js";
 import { drawStars, makeStars } from "./stars.js";
 import { noise } from "./noise.js";
+import { doIntro } from "./intro.js";
 const SEED=59,
 ROCKET_WIDTH=14,
 ROCKET_HEIGHT=20,

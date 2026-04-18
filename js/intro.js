@@ -1,3 +1,5 @@
+let clickTime = false;
+
 /// t - current time
 /// s - start time
 /// d - total duration (including fades)
@@ -14,7 +16,7 @@ function introTextColor(inColor, t, s, d, fi, fo) {
     return fadedColor;
 }
 
-function doIntro(inColor) {
+export function doIntro(inColor) {
     const t = millis();
     if (t > 7500) {
         return;
