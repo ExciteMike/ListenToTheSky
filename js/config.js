@@ -22,8 +22,9 @@ const ship = {
     eyeShiftScale:0.05,
     eyeShiftMax:3,
     eyeSize:10,
-    straightenBlend:0.2,
-    preferredSpeed:1000,
+    accelMax:2000,
+    accelMaxAt:300,
+    damp:0.97
 };
 const seed = 59;
 const targetFrameRate = 60;

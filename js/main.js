@@ -58,8 +58,9 @@ function drawPlayer() {
     noStroke();
     const drift = noise.p1.drift();
     let adjustedMouse = createVector(mouseX, mouseY);
+    adjustedMouse.add(G.camera.x, G.camera.y);
+    adjustedMouse.sub(G.ship.x, G.ship.y);
     adjustedMouse.sub(drift);
-    adjustedMouse.sub(G.CANVAS_SIZE/2, G.CANVAS_SIZE/2);
     adjustedMouse.add(0, config.ship.bodyHeight/2);
     const mouseMag = adjustedMouse.mag(),
           mouseHeading = adjustedMouse.heading(),
@@ -77,17 +78,18 @@ function drawPlayer() {
         eyeShift = constrain(config.ship.eyeShiftScale * adjustedMouse.x, -config.ship.eyeShiftMax, config.ship.eyeShiftMax);
     
     // straighten when moving
-    const targetStraighten = mouseIsPressed ? 1/*map(sin(mouseHeading), -1, 1, 0, 1)*/ : 0;
-    let t = G.ship.straightenFactor = lerp(G.ship.straightenFactor, targetStraighten, config.ship.straightenBlend);
-    finTilt  = lerpAngle(finTilt,  mouseHeading+PI/2, t);
-    headTilt = lerpAngle(headTilt, mouseHeading+PI/2, t);
-    bodyTilt = lerpAngle(bodyTilt, mouseHeading+PI/2, t);
+    const shipSpeed = mag(G.ship.dx, G.ship.dy),
+          shipHeading = atan2(G.ship.ddy, G.ship.ddx);
+    let t = shipSpeed / (shipSpeed + 100);
+    finTilt  = lerpAngle(finTilt,  shipHeading+PI/2, t);
+    headTilt = lerpAngle(headTilt, shipHeading+PI/2, t);
+    bodyTilt = lerpAngle(bodyTilt, shipHeading+PI/2, t);
     eyeShift = lerp(eyeShift, 0, t);
 
     push();
-    translate(
-        G.ship.x+noise.p1.driftX(),
-        G.ship.y+noise.p1.driftY());
+        translate(
+            G.ship.x+noise.p1.driftX(),
+            G.ship.y+noise.p1.driftY());
 
         push();
             // body
