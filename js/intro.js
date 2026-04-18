@@ -19,13 +19,13 @@ function doIntro(inColor) {
     if (t > 7500) {
         return;
     }
-    const x = lerp(CANVAS_SIZE*0.45, CANVAS_SIZE*0.7, pow(t/7500,2));
+    const x = lerp(G.CANVAS_SIZE*0.45, G.CANVAS_SIZE*0.7, pow(t/7500,2));
     textSize(72);
     noStroke();
     fill(introTextColor(inColor, t, 500, 5000, 1000, 2000));
-    text('Listen to the Sky', x, CANVAS_SIZE*0.4);
+    text('Listen to the Sky', x, G.CANVAS_SIZE*0.4);
     
     textSize(24);
     fill(introTextColor(inColor, t, 1500, 6000, 2000, 3000));
-    text('touch/click to move', x, CANVAS_SIZE*0.6);
+    text('touch/click to move', x, G.CANVAS_SIZE*0.6);
 }

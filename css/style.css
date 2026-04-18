@@ -7,9 +7,9 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #A2D6F9;
+  background: #72727E;
 }
 canvas {
   display: block;
-  border: 2px solid #072AC8;
+  border: 2px solid #625F63;
 }
