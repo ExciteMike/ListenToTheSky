@@ -15,17 +15,21 @@ const ship = {
     bodyHeight:20,
     finsWidth:24,
     headHeight:15,
-    eyeY:0,
+    eyeY:1,
     bodyTiltScale:0.25,
     headTiltScale:1,
     finTiltScaleFIN_TILT_SCALE:-0.1,
-    eyeShiftScale:0.02,
+    eyeShiftScale:0.05,
     eyeShiftMax:3,
     eyeSize:10,
+    straightenBlend:0.2,
+    preferredSpeed:1000,
 };
 const seed = 59;
+const targetFrameRate = 60;
 export const config = {
     color,
     seed,
-    ship
+    ship,
+    targetFrameRate
 };

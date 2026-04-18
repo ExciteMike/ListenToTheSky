@@ -5,6 +5,8 @@ import { doIntro } from "./intro.js";
 import { world } from "./world.js";
 import { G } from "./g.js";
 import { config } from "./config.js";
+import { lerpAngle } from "./math.js";
+import { controlPlayer } from "./controls.js";
 G.ship = {
     x: world.center.x,
     y: world.center.y,
@@ -54,11 +56,19 @@ function drawPlayer() {
                     (mouseHeading <  0.25*PI) ? mouseHeading :
                     (mouseHeading <   0.5*PI) ? map(mouseHeading, 0.25*PI, 0.5*PI, mouseHeading, 0) :
                     (mouseHeading <  0.75*PI) ? map(mouseHeading,  0.5*PI, 0.75*PI, 0, (mouseHeading - PI)) :
-                    (mouseHeading-PI),
-          bodyTilt = tiltScale * config.ship.bodyTiltScale * rawTilt,
-          headTilt = tiltScale * config.ship.headTiltScale * rawTilt,
-          finTilt = tiltScale * config.ship.finTiltScale * rawTilt,
-          eyeShift = constrain(config.ship.eyeShiftScale * adjustedMouse.x, -config.ship.eyeShiftMax, config.ship.eyeShiftMax);
+    let bodyTilt = tiltScale * config.ship.bodyTiltScale * rawTilt,
+        headTilt = tiltScale * config.ship.headTiltScale * rawTilt,
+        finTilt = tiltScale * config.ship.finTiltScale * rawTilt,
+        eyeShift = constrain(config.ship.eyeShiftScale * adjustedMouse.x, -config.ship.eyeShiftMax, config.ship.eyeShiftMax);
+    
+    // straighten when moving
+    const targetStraighten = mouseIsPressed ? 1/*map(sin(mouseHeading), -1, 1, 0, 1)*/ : 0;
+    let t = G.ship.straightenFactor = lerp(G.ship.straightenFactor, targetStraighten, config.ship.straightenBlend);
+    finTilt  = lerpAngle(finTilt,  mouseHeading+PI/2, t);
+    headTilt = lerpAngle(headTilt, mouseHeading+PI/2, t);
+    bodyTilt = lerpAngle(bodyTilt, mouseHeading+PI/2, t);
+    eyeShift = lerp(eyeShift, 0, t);
+
     push();
     translate(
         G.ship.x+noise.p1.driftX()-G.camera.x+G.CANVAS_SIZE/2,
