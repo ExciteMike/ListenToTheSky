@@ -5,7 +5,6 @@ const color = {
     debug:'#FF9900',
     eye:DARK_COLOR,
     extra:'#72727E',
-    extraextra:'#625F63',
     object:LIGHT_COLOR,
     star:LIGHT_COLOR,
     text:'#9893DA',
@@ -30,17 +29,27 @@ const ship = {
 const seed = 59;
 const targetFrameRate = 60;
 const cameraBlend = 0.1;
-export const config = {
-    cameraBlend,
-    color,    
-    oob: {
+const oob = {
         border: '#FFCC00',
         fill: '#FF3399',
         strokeWeight: 2,
         size: 40,
         wall: LIGHT_COLOR,
         wallWeight: 14
-    },
+};
+const planets = {
+    count: 100,
+    minRadius: 25,
+    maxRadius: 100,
+    fill: '#625F63',
+    strokeColor: LIGHT_COLOR,
+    strokeWeight: 1
+};
+export const config = {
+    cameraBlend,
+    color,    
+    oob,
+    planets,
     seed,
     ship,
     targetFrameRate,

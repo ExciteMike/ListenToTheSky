@@ -40,7 +40,7 @@ function makeStarCell(row, col) {
     return stars;
 }
 
-export function makeStars() {
+export function createStars() {
     for (let row = 0; row<world.gridRows; ++row) {
         const rowData = [];
         for (let col = 0; col<world.gridCols; ++col) {

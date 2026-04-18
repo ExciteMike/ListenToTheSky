@@ -1,5 +1,5 @@
 import { audio } from "./audio.js";
-import { drawStars, makeStars } from "./stars.js";
+import { drawStars, createStars } from "./stars.js";
 import { noise } from "./noise.js";
 import { doIntro } from "./intro.js";
 import { world } from "./world.js";
@@ -9,6 +9,7 @@ import { lerpAngle } from "./math.js";
 import { controlPlayer } from "./controls.js";
 import { doCameraTransform, updateCamera } from "./camera.js";
 import { drawBounds, drawOobIndicator } from "./bounds.js";
+import { createPlanets, drawPlanets } from "./planets.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -34,10 +35,12 @@ function setup() {
     document.getElementById("loading").remove();
     G.canvas = createCanvas(G.CANVAS_SIZE, G.CANVAS_SIZE);
     frameRate(config.targetFrameRate);
+    randomSeed(config.seed);
     noiseSeed(config.seed);
     textFont(loadFont('assets/Goldman-Regular.ttf'));
     textAlign(CENTER, CENTER);
-    makeStars();
+    createStars();
+    createPlanets()
 }
 window.setup=setup;
 
@@ -50,6 +53,7 @@ function draw() {
     push();
         doCameraTransform();
         drawStars();
+        drawPlanets();
         drawBounds();
         drawOobIndicator();
         drawPlayer();
