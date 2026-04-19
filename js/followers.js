@@ -17,6 +17,7 @@ function drawFollower(f) {
         config.followers.h,
         config.followers.r);
     fill(config.followers.textColor);
+    textSize(16);
     text(item, x, y);
 }
 export function drawFollowers() {

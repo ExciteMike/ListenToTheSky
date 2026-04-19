@@ -76,9 +76,11 @@ function drawBubble(s) {
     );
     fill(config.signal.textColor);
     if (want) {
+        textSize(16);
         text(want+'?', x+step, y-step);
     }
     if (has) {
+        textSize(16);
         text(has+'!', x+step, y-step);
     }
 }
