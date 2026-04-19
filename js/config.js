@@ -24,6 +24,9 @@ const followers = {
     boxColor: LIGHT_COLOR,
     textColor: DARK_COLOR,
 };
+const hud = {
+    textColor: LIGHT_COLOR,
+}
 const oob = {
         border: '#FFCC00',
         fill: '#FF3399',
@@ -39,6 +42,7 @@ const planets = {
     minFreq: 1/30,
     maxFreq: 1/300,
     fill: '#625F63',
+    placementMargin: 150,
     strokeColor: LIGHT_COLOR,
     strokeWeight: 1,
 };
@@ -80,6 +84,7 @@ export const config = {
     color,
     effects,
     followers,
+    hud,
     oob,
     planets,
     seed,

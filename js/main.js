@@ -13,6 +13,7 @@ import { createPlanets, drawPlanets } from "./planets.js";
 import { drawSignals, initSignals, updateSignals } from "./signals.js";
 import { addEffect, drawEffects } from "./effects.js";
 import { drawFollowers, updateFollowers } from "./followers.js";
+import { drawHud } from "./hud.js";
 import * as progression from "./progression.js";
 G.ship = {
     ddx: 0,
@@ -70,6 +71,7 @@ function draw() {
         drawEffects();
         drawOobIndicator();
     pop();
+    drawHud();
 
     doIntro(config.color.text);
 }
