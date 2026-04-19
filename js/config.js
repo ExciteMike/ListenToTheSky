@@ -15,6 +15,14 @@ const effects = {
         'hsl(358, 67%, 65%)'],
     strokeWeight: 16
 };
+const followers = {
+    ease: 0.1,
+    distance: 40,
+    w: 25,
+    h: 30,
+    boxColor: LIGHT_COLOR,
+    textColor: DARK_COLOR,
+};
 const oob = {
         border: '#FFCC00',
         fill: '#FF3399',
@@ -31,7 +39,7 @@ const planets = {
     maxFreq: 1/300,
     fill: '#625F63',
     strokeColor: LIGHT_COLOR,
-    strokeWeight: 1
+    strokeWeight: 1,
 };
 const seed = 59;
 const ship = {
@@ -70,6 +78,7 @@ export const config = {
     cameraBlend,
     color,
     effects,
+    followers,
     oob,
     planets,
     seed,

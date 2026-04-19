@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import { celebrationBurst } from "./effects.js";
+import { addFollower } from "./follower.js";
 import { G } from "./g.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
 
@@ -57,7 +58,7 @@ function drawBubble(s) {
           {x,y} = getPlanetXY(planet),
           SQRTHALF = sqrt(0.5),
           step = SQRTHALF*(r + config.signal.bubbleOffset);
-    noStroke(config.signal.bubbleColor);
+    noStroke();
     fill(config.signal.bubbleColor);
     rect(
         x+step-0.5*config.signal.bubbleW, 
@@ -110,7 +111,7 @@ export function updateSignals() {
               shipDist = dist(G.ship.x, G.ship.y, x, y);
         if (shipDist < r+config.ship.radius) {
             if (has) {
-                // TODO - pickup follower
+                addFollower(x+r, y-r, has);
                 // remove from list
                 signalers.splice(i,1);
             } else if (want && shipHas(want)) {

@@ -12,6 +12,7 @@ import { drawBounds, drawOobIndicator } from "./bounds.js";
 import { createPlanets, drawPlanets } from "./planets.js";
 import { drawSignals, initSignals, updateSignals } from "./signals.js";
 import { addEffect, drawEffects } from "./effects.js";
+import { drawFollowers, updateFollowers } from "./follower.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -52,6 +53,7 @@ function draw() {
     background(config.color.background);
 
     controlPlayer();
+    updateFollowers();
     updateSignals();
     updateCamera();
 
@@ -60,10 +62,11 @@ function draw() {
         drawStars();
         drawPlanets();
         drawBounds();
-        drawOobIndicator();
         drawPlayer();
+        drawFollowers();
         drawSignals();
         drawEffects();
+        drawOobIndicator();
     pop();
 
     doIntro(config.color.text);
