@@ -17,12 +17,12 @@ export function addEffect(x, y, dx, dy, dur, colorset) {
     });
 }
 export function celebrationBurst(x, y, r) {
-    const n=32, speed=250;
+    const n=16, speed=160;
     for (let i=0;i<n;++i) {
         const theta = TAU*i/n,
               dx = cos(theta) * speed,
               dy = sin(theta) * speed;
-        addEffect(x+r*cos(theta), y+r*sin(theta), dx, dy, 1, config.effects.celebratoryColors);
+        addEffect(x+r*cos(theta), y+r*sin(theta), dx, dy, 0.25, config.effects.celebratoryColors);
     }
 }
 export function drawEffects() {
