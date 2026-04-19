@@ -10,7 +10,6 @@ function preload() {
     console.log('Loading '+asset+'.mp3');
     song = loadSound(asset, loaded);
     deliver = loadSound('assets/deliver');
-    console.log(deliver);
     pickup = loadSound('assets/pickup');
     bump = loadSound('assets/bump');
 }
