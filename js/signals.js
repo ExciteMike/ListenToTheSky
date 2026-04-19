@@ -26,7 +26,7 @@ function drawPulse(s, n) {
           theta = (phase + TAU*millis()*0.001*config.signal.freq) % TAU + n*TAU,
           fadeLimit = config.signal.maxPulses * TAU,
           d = map(theta, 0, TAU, r, config.signal.speed/config.signal.freq);
-    let adjustedColor = color(config.signal.color);
+    let adjustedColor = color(config.signal.pulseColor);
     adjustedColor.setAlpha(map(theta, 0, fadeLimit, 255, 0));
     stroke(adjustedColor);
     strokeWeight(config.signal.strokeWeightMax);
@@ -38,10 +38,32 @@ function drawSignal(s) {
     for (let i=0;i<config.signal.maxPulses;++i) {
         drawPulse(s,i);
     }
+    drawWant(s);
 }
 
 export function drawSignals() {
     signalers.forEach(drawSignal);
+}
+
+function drawWant(s) {
+    const {planet} = s,
+          {r} = planet,
+          {x,y} = getPlanetXY(planet),
+          SQRTHALF = sqrt(0.5),
+          step = SQRTHALF*(r + config.signal.bubbleOffset);
+    noStroke(config.signal.bubbleColor);
+    fill(config.signal.bubbleColor);
+    rect(
+        x+step-0.5*config.signal.bubbleW, 
+        y-step-0.5*config.signal.bubbleH,
+        config.signal.bubbleW,
+        config.signal.bubbleH,
+        config.signal.bubbleR);
+    triangle(
+        x+step-0.3*config.signal.bubbleW, y-step,
+        x+step+0.3*config.signal.bubbleW, y-step,
+        x+step-0.3*config.signal.bubbleW, y-step+config.signal.bubbleH,
+    );
 }
 
 function clearSignalers() {

@@ -47,11 +47,16 @@ const planets = {
     strokeWeight: 1
 };
 const signal = {
-    color: LIGHT_COLOR,//'#72727E',
+    pulseColor: LIGHT_COLOR,//'#72727E',
     freq: 1/6,
     speed: 1000,
     strokeWeightMax: 16,
     maxPulses: 2,
+    bubbleColor: LIGHT_COLOR,
+    bubbleR: 4,
+    bubbleOffset: 20,
+    bubbleW: 40,
+    bubbleH: 30,
 };
 export const config = {
     cameraBlend,
