@@ -2,6 +2,8 @@ import { config } from "./config.js";
 import { celebrationBurst } from "./effects.js";
 import { addFollower, hasItem, removeFollower } from "./followers.js";
 import { G } from "./g.js";
+import { countDelivery as countDeliveryHud } from "./hud.js";
+import { countDelivery as countDeliveryProgression } from "./progression.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
 import { playDeliver, playPickup } from "./audio.js";
 
@@ -101,6 +103,20 @@ function planetInUse(p) {
     return false;
 }
 
+export function newSignals(items) {
+    clearSignalers();
+    addSignalersUpTo(2*items.length);
+    for (let i=0;i<items.length;++i) {
+        const item = items[i];
+        signalers[2*i  ].want = item;
+        signalers[2*i+1].has  = item;
+    }
+}
+
+export function numSignals() {
+    return signalers.length;
+}
+
 export function updateSignals() {
     for(let i=signalers.length-1;i>=0;--i) {
         const s = signalers[i],
@@ -120,8 +136,8 @@ export function updateSignals() {
                 playDeliver();
                 celebrationBurst(x, y, r);
                 removeFollower(want);
-                // TODO - increment counter
-                // TODO - possibly trigger next wave
+                countDeliveryHud();
+                countDeliveryProgression();
                 // remove from list
                 signalers.splice(i,1);
             }

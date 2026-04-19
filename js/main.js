@@ -13,6 +13,7 @@ import { createPlanets, drawPlanets } from "./planets.js";
 import { drawSignals, initSignals, updateSignals } from "./signals.js";
 import { addEffect, drawEffects } from "./effects.js";
 import { drawFollowers, updateFollowers } from "./followers.js";
+import * as progression from "./progression.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -52,6 +53,7 @@ window.setup=setup;
 function draw() {
     background(config.color.background);
 
+    progression.check();
     controlPlayer();
     updateFollowers();
     updateSignals();
