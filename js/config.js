@@ -20,6 +20,7 @@ const followers = {
     distance: 40,
     w: 25,
     h: 30,
+    r: 4,
     boxColor: LIGHT_COLOR,
     textColor: DARK_COLOR,
 };
