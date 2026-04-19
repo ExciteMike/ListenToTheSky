@@ -12,7 +12,7 @@ import { drawBounds, drawOobIndicator } from "./bounds.js";
 import { createPlanets, drawPlanets } from "./planets.js";
 import { drawSignals, initSignals, updateSignals } from "./signals.js";
 import { addEffect, drawEffects } from "./effects.js";
-import { drawFollowers, updateFollowers } from "./follower.js";
+import { drawFollowers, updateFollowers } from "./followers.js";
 G.ship = {
     ddx: 0,
     ddy: 0,

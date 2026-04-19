@@ -1,6 +1,6 @@
 import { config } from "./config.js";
 import { celebrationBurst } from "./effects.js";
-import { addFollower } from "./follower.js";
+import { addFollower } from "./followers.js";
 import { G } from "./g.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
 
