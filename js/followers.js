@@ -22,6 +22,15 @@ function drawFollower(f) {
 export function drawFollowers() {
     followers.forEach(drawFollower);
 }
+export function hasItem(searchItem) {
+    for (let i=0;i<followers.length;++i) {
+        const {item} = followers[i];
+        if (item==searchItem) {
+            return true;
+        }
+    }
+    return false;
+}
 export function updateFollowers() {
     let prevX = G.ship.x,
         prevY = G.ship.y;
@@ -39,5 +48,14 @@ export function updateFollowers() {
         f.y = lerp(f.y, ty, config.followers.ease);
         prevX = f.x;
         prevY = f.y;
+    }
+}
+export function removeFollower(searchItem) {
+    for (let i=0;i<followers.length;++i) {
+        const {item} = followers[i];
+        if (item==searchItem) {
+            followers.splice(i,1);
+            return;
+        }
     }
 }

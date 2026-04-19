@@ -16,7 +16,7 @@ const effects = {
     strokeWeight: 16
 };
 const followers = {
-    ease: 0.1,
+    ease: 0.5,
     distance: 40,
     w: 25,
     h: 30,

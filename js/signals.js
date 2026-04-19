@@ -1,6 +1,6 @@
 import { config } from "./config.js";
 import { celebrationBurst } from "./effects.js";
-import { addFollower } from "./followers.js";
+import { addFollower, hasItem, removeFollower } from "./followers.js";
 import { G } from "./g.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
 
@@ -114,9 +114,9 @@ export function updateSignals() {
                 addFollower(x+r, y-r, has);
                 // remove from list
                 signalers.splice(i,1);
-            } else if (want && shipHas(want)) {
-                // celebratory effects
+            } else if (want && hasItem(want)) {
                 celebrationBurst(x, y, r);
+                removeFollower(want);
                 // TODO - increment counter
                 // TODO - possibly trigger next wave
                 // remove from list
