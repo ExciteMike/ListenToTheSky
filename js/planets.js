@@ -6,8 +6,8 @@ let planets = [];
 function addPlanet() {
     const {minRadius, maxRadius, minFreq, maxFreq} = config.planets, 
           r = random(minRadius, maxRadius),
-          x = random(world.width),
-          y = random(world.height),
+          x = random(config.planets.placementMargin, world.width-config.planets.placementMargin),
+          y = random(config.planets.placementMargin, world.height-config.planets.placementMargin),
           {nearest, d} = findNearestPlanet(x, y);
     if ((nearest == undefined) || (d > max(r, nearest.r))) {
         const phase = random(TAU),
