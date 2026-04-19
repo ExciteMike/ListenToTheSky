@@ -3,6 +3,7 @@ import { celebrationBurst } from "./effects.js";
 import { addFollower, hasItem, removeFollower } from "./followers.js";
 import { G } from "./g.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
+import { playDeliver, playPickup } from "./audio.js";
 
 const signalers = [];
 
@@ -111,10 +112,12 @@ export function updateSignals() {
               shipDist = dist(G.ship.x, G.ship.y, x, y);
         if (shipDist < r+config.ship.radius) {
             if (has) {
+                playPickup();
                 addFollower(x+r, y-r, has);
                 // remove from list
                 signalers.splice(i,1);
             } else if (want && hasItem(want)) {
+                playDeliver();
                 celebrationBurst(x, y, r);
                 removeFollower(want);
                 // TODO - increment counter

@@ -1,3 +1,4 @@
+import { playBump } from "./audio.js";
 import { config } from "./config.js";
 import { G } from "./g.js";
 import { world } from "./world.js";
@@ -48,20 +49,24 @@ function enforceBounds() {
         G.ship.x = r;
         G.ship.dx = max(0, G.ship.dx);
         G.ship.ddx = max(0, G.ship.ddx);
+        playBump();
     }
     if (G.ship.x > world.width - r) {
         G.ship.x = world.width - r;
         G.ship.dx = min(0, G.ship.dx);
         G.ship.ddx = min(0, G.ship.ddx);
+        playBump();
     }
     if (G.ship.y < r) {
         G.ship.y = r;
         G.ship.dy = max(0, G.ship.dy);
         G.ship.ddy = max(0, G.ship.ddy);
+        playBump();
     }
     if (G.ship.y > world.height - r) {
         G.ship.y = world.height - r;
         G.ship.dy = min(0, G.ship.dy);
         G.ship.ddy = min(0, G.ship.ddy);
+        playBump();
     }
 }
