@@ -10,12 +10,14 @@ import { controlPlayer } from "./controls.js";
 import { doCameraTransform, updateCamera } from "./camera.js";
 import { drawBounds, drawOobIndicator } from "./bounds.js";
 import { createPlanets, drawPlanets } from "./planets.js";
-import { drawSignals, initSignals } from "./signals.js";
+import { drawSignals, initSignals, updateSignals } from "./signals.js";
+import { addEffect, drawEffects } from "./effects.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
     dx: 0,
     dy: 0,
+    followers:[],
     straightenFactor: 0,
     targetX: world.center.x,
     targetY: world.center.y,
@@ -50,6 +52,7 @@ function draw() {
     background(config.color.background);
 
     controlPlayer();
+    updateSignals();
     updateCamera();
 
     push();
@@ -60,6 +63,7 @@ function draw() {
         drawOobIndicator();
         drawPlayer();
         drawSignals();
+        drawEffects();
     pop();
 
     doIntro(config.color.text);
@@ -106,14 +110,13 @@ function drawPlayer() {
         push();
             // body
             rotate(bodyTilt);
-            fill(config.color.object);
+            fill(config.ship.color);
             rect(-config.ship.bodyWidth/2,-config.ship.bodyHeight/2,config.ship.bodyWidth,config.ship.bodyHeight);
 
             // head
             push();
                 translate(0, -config.ship.bodyHeight/2);
                 rotate(headTilt-bodyTilt);
-                fill(config.color.object);
                 triangle(
                     -config.ship.bodyWidth/2, 0,
                     config.ship.bodyWidth/2, 0,
@@ -122,9 +125,9 @@ function drawPlayer() {
 
                 // EYE
                 circle(eyeShift, config.ship.eyeY, config.ship.eyeSize);
-                fill(config.color.eye);
+                fill(config.color.background);
                 circle(eyeShift, config.ship.eyeY, config.ship.eyeSize-2);
-                fill(config.color.object);
+                fill(config.ship.color);
                 circle(eyeShift, config.ship.eyeY, config.ship.eyeSize-4);
             pop();
             
@@ -139,4 +142,21 @@ function drawPlayer() {
             pop();
         pop();
     pop();
+
+    // effects
+    if (random() < 0.5) {
+        let pos = createVector((random()-0.5) * config.ship.bodyWidth, config.ship.bodyHeight);
+        pos.rotate(bodyTilt);
+        pos.add(noise.p1.driftX(), noise.p1.driftY());
+        pos.add(G.ship.x, G.ship.y);
+        let vel = createVector(0, 100);
+        vel.rotate(random(bodyTilt-PI/4, bodyTilt+PI/4));
+        addEffect(
+            pos.x,
+            pos.y,
+            vel.x,
+            vel.y,
+            0.25,
+            [config.ship.color]);
+    }
 }

@@ -1,4 +1,5 @@
 import { config } from "./config.js";
+import { celebrationBurst } from "./effects.js";
 import { G } from "./g.js";
 import { getPlanetXY, getRandomPlanet } from "./planets.js";
 
@@ -38,14 +39,19 @@ function drawSignal(s) {
     for (let i=0;i<config.signal.maxPulses;++i) {
         drawPulse(s,i);
     }
-    drawWant(s);
+    drawBubble(s);
 }
 
 export function drawSignals() {
     signalers.forEach(drawSignal);
 }
 
-function drawWant(s) {
+function drawBubble(s) {
+    const want = s.hasOwnProperty('want') ? s.want : undefined,
+          has = s.hasOwnProperty('has') ? s.has : undefined;
+    if (!want && !has) {
+        return;
+    }
     const {planet} = s,
           {r} = planet,
           {x,y} = getPlanetXY(planet),
@@ -64,9 +70,13 @@ function drawWant(s) {
         x+step+0.3*config.signal.bubbleW, y-step,
         x+step-0.3*config.signal.bubbleW, y-step+config.signal.bubbleH,
     );
-    const label = (s.hasOwnProperty('want')) ? (s.want+'?') : (s.has+'!');
     fill(config.signal.textColor);
-    text(label, x+step, y-step);
+    if (want) {
+        text(want+'?', x+step, y-step);
+    }
+    if (has) {
+        text(has+'!', x+step, y-step);
+    }
 }
 
 function clearSignalers() {
@@ -87,4 +97,30 @@ function planetInUse(p) {
         }
     }
     return false;
+}
+
+export function updateSignals() {
+    for(let i=signalers.length-1;i>=0;--i) {
+        const s = signalers[i],
+              want = s.hasOwnProperty('want') ? s.want : undefined,
+              has = s.hasOwnProperty('has') ? s.has : undefined,
+              {planet} = s,
+              {r} = planet,
+              {x,y} = getPlanetXY(planet),
+              shipDist = dist(G.ship.x, G.ship.y, x, y);
+        if (shipDist < r+config.ship.radius) {
+            if (has) {
+                // TODO - pickup follower
+                // remove from list
+                signalers.splice(i,1);
+            } else if (want && shipHas(want)) {
+                // celebratory effects
+                celebrationBurst(x, y, r);
+                // TODO - increment counter
+                // TODO - possibly trigger next wave
+                // remove from list
+                signalers.splice(i,1);
+            }
+        }
+    }
 }

@@ -29,10 +29,6 @@ export function controlPlayer() {
           accelMag = map(constrainedD, 0, config.ship.accelMaxAt, 0, config.ship.accelMax),
           ddx = accelMag * nx,
           ddy = accelMag * ny;
-    if (isNaN(ox+oy+d+ nx+ ny+ constrainedD+ accelMag)) {
-        console.log(ox, oy, d, nx, ny, constrainedD, accelMag);
-        throw new Error();
-    }
     G.ship.x += G.ship.dx * 0.5 * timeStep;
     G.ship.y += G.ship.dy * 0.5 * timeStep;
     G.ship.dx += ddx * timeStep;
