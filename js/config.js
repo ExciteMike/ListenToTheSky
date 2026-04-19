@@ -61,7 +61,7 @@ const ship = {
     eyeShiftMax:3,
     eyeSize:10,
     accelMax:5000,
-    accelMaxAt:300,
+    accelMaxAt:100,
     damp:0.9,
     radius:20
 };

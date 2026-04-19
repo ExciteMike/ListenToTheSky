@@ -19,7 +19,6 @@ main {
 }
 canvas {
   display: block;
-  border: 2px solid #625F63;
   object-fit: contain;
   width: 100vw;
   height: 100vh;
