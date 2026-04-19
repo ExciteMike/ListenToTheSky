@@ -57,6 +57,7 @@ const signal = {
     bubbleOffset: 20,
     bubbleW: 40,
     bubbleH: 30,
+    textColor: DARK_COLOR,
 };
 export const config = {
     cameraBlend,

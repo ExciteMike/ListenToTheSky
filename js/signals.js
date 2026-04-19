@@ -64,6 +64,9 @@ function drawWant(s) {
         x+step+0.3*config.signal.bubbleW, y-step,
         x+step-0.3*config.signal.bubbleW, y-step+config.signal.bubbleH,
     );
+    const label = (s.hasOwnProperty('want')) ? (s.want+'?') : (s.has+'!');
+    fill(config.signal.textColor);
+    text(label, x+step, y-step);
 }
 
 function clearSignalers() {
@@ -72,7 +75,9 @@ function clearSignalers() {
 
 export function initSignals() {
     clearSignalers();
-    addSignalersUpTo(1);
+    addSignalersUpTo(2);
+    signalers[0].want = 'a';
+    signalers[1].has = 'a';
 }
 
 function planetInUse(p) {
