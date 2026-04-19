@@ -14,16 +14,16 @@ const ship = {
     bodyHeight:20,
     finsWidth:24,
     headHeight:15,
-    eyeY:1,
+    eyeY:-3,
     bodyTiltScale:0.25,
-    headTiltScale:1,
+    headTiltScale:1.2,
     finTiltScaleFIN_TILT_SCALE:-0.1,
     eyeShiftScale:0.05,
     eyeShiftMax:3,
     eyeSize:10,
-    accelMax:2000,
+    accelMax:5000,
     accelMaxAt:300,
-    damp:0.97,
+    damp:0.9,
     radius:20
 };
 const seed = 59;
