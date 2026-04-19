@@ -55,7 +55,7 @@ export function getRandomPlanet() {
 
 export function getPlanetXY(planet) {
     const {x,y,r,phase,freq} = planet,
-          wobbleR = r,
+          wobbleR = map(freq, config.planets.minFreq, config.planets.maxFreq, config.planets.maxRadius, config.planets.minRadius),
           theta = phase + TAU*millis()*0.001*freq,
           wobX = wobbleR * cos(theta),
           wobY = wobbleR * sin(2*theta);
