@@ -4,7 +4,6 @@ const color = {
     background:DARK_COLOR,
     debug:'#FF9900',
     eye:DARK_COLOR,
-    extra:'#72727E',
     object:LIGHT_COLOR,
     star:LIGHT_COLOR,
     text:'#9893DA',
@@ -47,12 +46,20 @@ const planets = {
     strokeColor: LIGHT_COLOR,
     strokeWeight: 1
 };
+const signal = {
+    color: LIGHT_COLOR,//'#72727E',
+    freq: 1/6,
+    speed: 1000,
+    strokeWeightMax: 16,
+    maxPulses: 2,
+};
 export const config = {
     cameraBlend,
     color,    
     oob,
     planets,
     seed,
+    signal,
     ship,
     targetFrameRate,
 };

@@ -10,6 +10,7 @@ import { controlPlayer } from "./controls.js";
 import { doCameraTransform, updateCamera } from "./camera.js";
 import { drawBounds, drawOobIndicator } from "./bounds.js";
 import { createPlanets, drawPlanets } from "./planets.js";
+import { drawSignals, initSignals } from "./signals.js";
 G.ship = {
     ddx: 0,
     ddy: 0,
@@ -40,7 +41,8 @@ function setup() {
     textFont(loadFont('assets/Goldman-Regular.ttf'));
     textAlign(CENTER, CENTER);
     createStars();
-    createPlanets()
+    createPlanets();
+    initSignals();
 }
 window.setup=setup;
 
@@ -57,6 +59,7 @@ function draw() {
         drawBounds();
         drawOobIndicator();
         drawPlayer();
+        drawSignals();
     pop();
 
     doIntro(config.color.text);
