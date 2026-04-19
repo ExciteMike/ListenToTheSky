@@ -41,6 +41,8 @@ const planets = {
     count: 100,
     minRadius: 25,
     maxRadius: 100,
+    minFreq: 1/30,
+    maxFreq: 1/300,
     fill: '#625F63',
     strokeColor: LIGHT_COLOR,
     strokeWeight: 1
