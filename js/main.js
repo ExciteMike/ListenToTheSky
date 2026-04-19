@@ -88,7 +88,7 @@ function drawPlayer() {
     
     // straighten when moving
     const shipSpeed = mag(G.ship.dx, G.ship.dy),
-          shipHeading = atan2(G.ship.ddy, G.ship.ddx);
+          shipHeading = atan2(G.ship.dy, G.ship.dx);
     let t = shipSpeed / (shipSpeed + 100);
     finTilt  = lerpAngle(finTilt,  shipHeading+PI/2, t);
     headTilt = lerpAngle(headTilt, shipHeading+PI/2, t);
