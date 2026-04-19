@@ -1,5 +1,3 @@
-import { config } from "./config.js";
-import { G } from "./g.js";
 import { newSignals, numSignals } from "./signals.js";
 
 let deliveries = 0;
@@ -19,6 +17,6 @@ export function check() {
         newSignals(['g','h', 'i', 'j']);
     }
     if ((deliveries == 10)&&(numSignals() == 0)) {
-        // TODO - victory message
+        // hud will start displaying the victory message
     }
 }

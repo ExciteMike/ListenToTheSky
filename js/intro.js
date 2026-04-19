@@ -1,5 +1,4 @@
 import { G } from "./g.js";
-let clickTime = false;
 
 /// t - current time
 /// s - start time
